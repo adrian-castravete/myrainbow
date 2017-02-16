@@ -5,6 +5,7 @@
 from __future__ import absolute_import
 
 import os
+from traceback import print_exc
 
 import rainbow_logging_handler
 import yaml
@@ -18,7 +19,12 @@ class RainbowLoggingHandler(rainbow_logging_handler.RainbowLoggingHandler):
 
     def _read_rc(self):
         config = {}
-        config.update(self._read_rc_file('~/.rainbowrc'))
+
+        try:
+            config.update(self._read_rc_file('~/.rainbowrc'))
+        except:
+            pass
+
         return config
 
     def _read_rc_file(self, file_name):
